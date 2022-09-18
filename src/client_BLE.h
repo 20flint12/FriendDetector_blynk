@@ -189,6 +189,7 @@ void setup_client_BLE() {
 // This is the Arduino main loop function.
 void loop_client_BLE() {
 
+  DEBUG_PRINT4(BLYNK_F("| "), doConnect, connected, doScan);
   // If the flag "doConnect" is true then we have scanned for and found the desired
   // BLE Server with which we wish to connect.  Now we connect to it.  Once we are 
   // connected we set the connected flag to be true.
