@@ -190,6 +190,7 @@ void setup_client_BLE() {
 void loop_client_BLE() {
 
   DEBUG_PRINT4(BLYNK_F("| "), doConnect, connected, doScan);
+  
   // If the flag "doConnect" is true then we have scanned for and found the desired
   // BLE Server with which we wish to connect.  Now we connect to it.  Once we are 
   // connected we set the connected flag to be true.
@@ -200,9 +201,11 @@ void loop_client_BLE() {
     } else {
       // Serial.println("We have failed to connect to the server; there is nothin more we will do.");
       DEBUG_PRINT1(BLYNK_F("We have failed to connect to the server; there is nothin more we will do."));
+      ESP.restart();
     }
     doConnect = false;
   }
+
 
   // If we are connected to a peer BLE Server, update the characteristic each time we are reached
   // with the current time since boot.
