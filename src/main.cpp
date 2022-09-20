@@ -180,7 +180,7 @@ void timer_BLE_message() {
 BLYNK_WRITE(PIN_REBOOTMCU)
 {
   String incom_str = param.asStr();
-  Serial.println(incom_str);
+  // Serial.println(incom_str);
   
   Blynk.virtualWrite(PIN_INCOMINGMESS, incom_str);
 

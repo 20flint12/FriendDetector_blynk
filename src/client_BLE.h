@@ -169,6 +169,7 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
   } // onResult
 }; // MyAdvertisedDeviceCallbacks
 
+
 void setup_client_BLE() {
   // Serial.println("Starting Arduino BLE Client application...");
   DEBUG_PRINT1(BLYNK_F("Starting Arduino BLE Client application..."));
