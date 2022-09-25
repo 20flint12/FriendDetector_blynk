@@ -8,7 +8,7 @@
 #define BLYNK_TEMPLATE_ID "TMPLMA0Id31S"
 #define BLYNK_DEVICE_NAME "Quickstart Template"
 
-#define BLYNK_FIRMWARE_VERSION "0.7.00"
+#define BLYNK_FIRMWARE_VERSION "0.7.01"
 
 #define BLYNK_PRINT Serial
 #define BLYNK_DEBUG     // prints comm exchange
