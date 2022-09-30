@@ -244,9 +244,9 @@ void loop() {
   BlynkEdgent.run();
 
   timer_1s.run();
-  timer_BLE.run();
   timer_5s.run();
-  timer_30s.run();
+  // timer_30s.run();
+  // timer_BLE.run();
 
 }
 

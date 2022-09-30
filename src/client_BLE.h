@@ -14,22 +14,22 @@
 // // The characteristic of the remote service we are interested in.
 // static BLEUUID    charUUID("beb5483e-36e1-4688-b7f5-ea07361b26a8");
 
-
 #define SERVICE_UUID           "6E400001-B5A3-F393-E0A9-E50E24DCCA9E" // UART service UUID
-// #define CHARACTERISTIC_UUID_TX "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
 #define CHARACTERISTIC_UUID_RX "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
+#define CHARACTERISTIC_UUID_TX "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
 
 static BLEUUID serviceUUID(SERVICE_UUID);
 static BLEUUID characteristicUUID_RX(CHARACTERISTIC_UUID_RX);
+static BLEUUID characteristicUUID_TX(CHARACTERISTIC_UUID_TX);
+
 
 static boolean doConnect = false;
 static boolean connected = false;
 static boolean doScan = false;
 static BLERemoteCharacteristic* pRemoteTxCharacteristic;
+static BLERemoteCharacteristic* pRemoteRxCharacteristic;  // here to write 
 static BLEAdvertisedDevice* myDevice;
 
-
-// StaticJsonDocument<20> doc;
 
 
 static void notifyCallback(
@@ -86,11 +86,11 @@ static void notifyCallback(
 
 class MyClientCallback : public BLEClientCallbacks {
   void onConnect(BLEClient* pclient) {
+    DEBUG_PRINT1(BLYNK_F("onConnect"));
   }
 
   void onDisconnect(BLEClient* pclient) {
     connected = false;
-    // Serial.println("onDisconnect");
     DEBUG_PRINT1(BLYNK_F("onDisconnect"));
   }
 };
@@ -138,6 +138,11 @@ bool connectToServer() {
     if(pRemoteTxCharacteristic->canNotify()) {
       pRemoteTxCharacteristic->registerForNotify(notifyCallback);
     }
+
+
+    // Obtain a reference to the characteristic in the service of the remote BLE server.
+    pRemoteRxCharacteristic = pRemoteService->getCharacteristic(characteristicUUID_TX);
+
 
     connected = true;
     return true;
@@ -227,6 +232,5 @@ void send2Ble_server(String mess)
 {
     // Serial.println(mess);
     DEBUG_PRINT1(mess);
-    // pRemoteTxCharacteristic->writeValue((uint8_t*)mess.c_str(), mess.length());
-    // pRemoteTxCharacteristic->notify();
+    pRemoteRxCharacteristic->writeValue((uint8_t*)mess.c_str(), mess.length());
 }
